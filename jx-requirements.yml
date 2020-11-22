@@ -1,35 +1,51 @@
+autoUpdate:
+  enabled: false
+  schedule: ""
+terraform: true
 cluster:
-  clusterName: ""
+  clusterName: "tf-jx-winning-pika"
   environmentGitOwner: ""
-  environmentGitPublic: false
-  project: ""
-  provider: gke
-  zone: ""
+  provider: eks
+  region: "us-east-1"
+  registry: "312601499315.dkr.ecr.us-east-1.amazonaws.com"
+  project: "312601499315"
 gitops: true
 environments:
-- key: dev
-- key: staging
-- key: production
+  - key: dev
+  - key: staging
+  - key: production
 ingress:
   domain: ""
+  ignoreLoadBalancer: false
   externalDNS: false
   tls:
     email: ""
     enabled: false
     production: false
 kaniko: true
-secretStorage: local
+secretStorage: vault
+vault:
+  aws:
+    iamUserName: ""
+    dynamoDBTable: "vault-unseal-tf-jx-winning-pika-0IgDja0c"
+    dynamoDBRegion: "us-east-1"
+    kmsKeyId: "9c75f9bf-f0b3-42bf-bd2c-750979f361b7"
+    kmsRegion: "us-east-1"
+    s3Bucket: "vault-unseal-tf-jx-winning-pika-20201122161732035800000001"
+    s3Region: "us-east-1"
 storage:
+  backup:
+    enabled: false
   logs:
-    enabled: false
-    url: ""
+    enabled: true
+    url: s3://logs-tf-jx-winning-pika-20201122161732056500000002
   reports:
-    enabled: false
-    url: ""
+    enabled: true
+    url: s3://reports-tf-jx-winning-pika-20201122161732092100000007
   repository:
-    enabled: false
-    url: ""
+    enabled: true
+    url: s3://repository-tf-jx-winning-pika-20201122161732081500000006
 versionStream:
-  ref: "master"
+  ref: master
   url: https://github.com/jenkins-x/jenkins-x-versions.git
 webhook: lighthouse
